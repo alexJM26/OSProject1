@@ -20,7 +20,7 @@ g++ consumer.cpp -pthread -lrt -o consumer
 
 To run the programs, enter the following command into the terminal.
 ```bash
-./producer & ./consumer
+./producer & ./consumer &
 ```
 
 ## Technologies
