@@ -19,6 +19,8 @@ void consumer(sharedMemory* ptr) {
         sem_post(&ptr->available); // signal that next process/thread can enter its critical section
 
         it++;
+
+        sleep(1); // cause fake delays for demonstration
     
     }
 
@@ -48,11 +50,11 @@ int main() {
     // get pointer to shared memory object
     ptr = static_cast<sharedMemory*>(mmap(NULL, sizeof(sharedMemory), PROT_WRITE, MAP_SHARED, fd, 0));
 
-    // make thread
+    // make two consumer threads
     std::thread t1(consumer, ptr);
     std::thread t2(consumer, ptr);
 
-    // join all thread
+    // join all threads
     t1.join();
     t2.join();
 
