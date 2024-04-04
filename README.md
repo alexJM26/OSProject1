@@ -12,7 +12,7 @@ Output is produced to help visualize the execution of the producer and consumer 
 
 ## Additional Information
 
-Additional documentation information and examples are found within this project's wiki.
+Additional documentation information is found within this project's wiki.
 
 ## Usage
 
