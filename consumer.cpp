@@ -3,16 +3,24 @@
 // CONSUMER FUNCTION ==========================================================
 void consumer(sharedMemory* ptr) {
 
-    sem_wait(&ptr->empty); // wait if table is empty
-    sem_wait(&ptr->available); // wait if another thread/process is in its critical section
+    int it = 0;
 
-    char itemConsumed = ptr->table[ptr->out]; // consume item in next consumable spot
-    ptr->out = ((ptr->out) + 1) % table_size; // increment next consumable spot
+    while (it < size) {
 
-    std::cout << "Consumed item: " << itemConsumed << std::endl;
+        sem_wait(&ptr->empty); // wait if table is empty
+        sem_wait(&ptr->available); // wait if another thread/process is in its critical section
 
-    sem_post(&ptr->full); // signal full semaphore (decrement it)
-    sem_post(&ptr->available); // signal that next process/thread can enter its critical section
+        char itemConsumed = ptr->table[ptr->out]; // consume item in next consumable spot
+        ptr->out = ((ptr->out) + 1) % table_size; // increment next consumable spot
+
+        std::cout << "Consumed item: " << itemConsumed << std::endl;
+
+        sem_post(&ptr->full); // signal full semaphore (decrement it)
+        sem_post(&ptr->available); // signal that next process/thread can enter its critical section
+
+        it++;
+    
+    }
 
 }
 
@@ -40,17 +48,13 @@ int main() {
     // get pointer to shared memory object
     ptr = static_cast<sharedMemory*>(mmap(NULL, sizeof(sharedMemory), PROT_WRITE, MAP_SHARED, fd, 0));
 
-    // make threads that will consume all produced items
+    // make thread
     std::thread t1(consumer, ptr);
     std::thread t2(consumer, ptr);
-    std::thread t3(consumer, ptr);
-    std::thread t4(consumer, ptr);
 
-    // join all threads
+    // join all thread
     t1.join();
     t2.join();
-    t3.join();
-    t4.join();
 
     // unlink from the shared memory object
     shm_unlink(name);
