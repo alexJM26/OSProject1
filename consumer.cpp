@@ -24,7 +24,8 @@ int main() {
     int fd; // name of file descriptor for shared memory object
     sharedMemory *ptr; // pointer to shared memory object
 
-    fd = shm_open(name, O_CREAT | O_RDWR, 0666); // get fd of shared memory object
+    // open shared memory object
+    fd = shm_open(name, O_CREAT | O_RDWR, 0666); 
     if (fd == -1) {
         printf("Error: shm_open Has Failed.");
         return -1;
