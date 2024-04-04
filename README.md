@@ -47,4 +47,6 @@ Consumed item: b
 
 ## Environment Information
 
+This project was developed in Red Hat Enterprise Linux 8.
+The programs should be compiled with g++ (GCC) version 8.5.0.
 
