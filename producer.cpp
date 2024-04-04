@@ -7,7 +7,7 @@ void producer(sharedMemory* ptr) {
 
     while (it < size) {
 
-        char item = char(65 + rand() % 25); // get random character as item
+        char item = char(65 + rand() % 25); // get random character A-Z
 
         sem_wait(&(ptr->full)); // wait if table is full
         sem_wait(&(ptr->available)); // wait if another process/thread is in critical section
@@ -21,6 +21,8 @@ void producer(sharedMemory* ptr) {
         sem_post(&(ptr->available)); // signal next process/thread can enter its critical section
 
         it++; 
+
+        sleep(1); // cause fake delays for demonstration
 
     }
 
@@ -58,7 +60,7 @@ int main() {
     // set seed for random producer items
     srand(5);
 
-    // makes thread producing items 
+    // make two producer threads 
     std::thread t1(producer, ptr);
     std::thread t2(producer, ptr);
 
