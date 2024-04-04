@@ -12,6 +12,6 @@ struct sharedMemory {
     char table[table_size]; // table to hold items
     int in = 0, out = 0; // indicate next element in table to be produced/consumed
 
-    sem_t available; // indicates if one process is in its critical section
-    sem_t full, empty; // become zero when table is full/empty
+    sem_t available; // indicates critical section
+    sem_t full, empty; // indicates if table is full/empty
 };
