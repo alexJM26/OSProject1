@@ -18,24 +18,33 @@ g++ producer.cpp -pthread -lrt -o producer
 g++ consumer.cpp -pthread -lrt -o consumer
 ```
 
-To run the programs, enter the following command into the terminal.
+To run the programs, enter the following command into the terminal. To see completion status and to return to the command line, press enter once output has finished generating.
 ```bash
 ./producer & ./consumer &
+```
+
+Alternatively, omit the last '&' operator for cleaner output.
+```bash
+./producer & ./consumer
 ```
 
 An example execution of the programs may look like this.
 ```bash
 [user@hornet Project1]$ ./producer & ./consumer &
-[1] 2735532
-[2] 2735533
-Produced Item: a
-Consumed item: a
-Produced Item: c
-Consumed item: c
-Produced Item: d
-Consumed item: d
-Produced Item: b
-Consumed item: b
+[1] 2818108
+[2] 2818109
+Produced Item: A
+Consumed item: A
+Produced Item: P
+Consumed Item: P
+
+...
+
+Produced Item: D
+Produced Item: L
+Consumed item: D
+Consumed item: L
+
 [1]-  Done                    ./producer
 [2]+  Done                    ./consumer
 [user@hornet Project1]$
