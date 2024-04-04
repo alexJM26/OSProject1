@@ -45,5 +45,6 @@ Consumed item: b
 [user@hornet Project1]$
 ```
 
-## Technologies
+## Environment Information
+
 
