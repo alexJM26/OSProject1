@@ -10,6 +10,10 @@ For this example of the producer-consumer problem, the producer and consumer com
 
 Output is produced to help visualize the execution of the producer and consumer processes. Whenever items are produced or consumed, this is communicated through process output. 
 
+## Additional Information
+
+Further documentation infromation can be found in this project's wiki.
+
 ## Usage
 
 To compile the producer and consumer programs, enter the following commands into the terminal.
