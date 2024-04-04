@@ -7,7 +7,7 @@
 #include <unistd.h>         // ftruncate
 
 #define table_size 2 // table can only hold two items at once
-#define size 5 // amount of items produced / consumed
+#define size 10 // amount of items produced / consumed
 
 struct sharedMemory {
     char table[table_size]; // table to hold items
