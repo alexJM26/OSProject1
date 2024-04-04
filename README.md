@@ -27,5 +27,23 @@ To run the programs, enter the following command into the terminal.
 ./producer & ./consumer &
 ```
 
+An example execution of the programs may look like this.
+```bash
+[user@hornet Project1]$ ./producer & ./consumer &
+[1] 2735532
+[2] 2735533
+Produced Item: a
+Consumed item: a
+Produced Item: c
+Consumed item: c
+Produced Item: d
+Consumed item: d
+Produced Item: b
+Consumed item: b
+[1]-  Done                    ./producer
+[2]+  Done                    ./consumer
+[user@hornet Project1]$
+```
+
 ## Technologies
 
