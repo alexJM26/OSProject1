@@ -1,18 +1,28 @@
 #include "sharedMemory.hpp"
 
 // PRODUCER FUNCTION ========================================================== 
-void producer(char item, sharedMemory* ptr) {
+void producer(sharedMemory* ptr) {
 
-    sem_wait(&(ptr->full)); // wait if table is full
-    sem_wait(&(ptr->available)); // wait if another process/thread is in critical section
+    int it = 0;
 
-    ptr->table[ptr->in] = item; // produce item in next available spot
-    ptr->in = ((ptr->in) + 1) % table_size; // increment next available spot
+    while (it < size) {
 
-    std::cout << "Produced Item: " << item << std::endl;
+        char item = char(65 + rand() % 25); // get random character as item
 
-    sem_post(&(ptr->empty)); // signal empty semaphore (decrement it)
-    sem_post(&(ptr->available)); // signal next process/thread can enter its critical section
+        sem_wait(&(ptr->full)); // wait if table is full
+        sem_wait(&(ptr->available)); // wait if another process/thread is in critical section
+
+        ptr->table[ptr->in] = item; // produce item in next available spot
+        ptr->in = ((ptr->in) + 1) % table_size; // increment next available spot
+
+        std::cout << "Produced Item: " << item << std::endl;
+
+        sem_post(&(ptr->empty)); // signal empty semaphore (decrement it)
+        sem_post(&(ptr->available)); // signal next process/thread can enter its critical section
+
+        it++; 
+
+    }
 
 }
 
@@ -45,17 +55,16 @@ int main() {
     sem_init(&ptr->full,1,table_size);
     sem_init(&ptr->empty,1,0);
 
-    // makes threads producing items 
-    std::thread t1(producer,'a', ptr);
-    std::thread t2(producer,'b', ptr);
-    std::thread t3(producer,'c', ptr);
-    std::thread t4(producer,'d', ptr);
+    // set seed for random producer items
+    srand(5);
+
+    // makes thread producing items 
+    std::thread t1(producer, ptr);
+    std::thread t2(producer, ptr);
 
     // join all threads
     t1.join();
     t2.join();
-    t3.join();
-    t4.join();
 
     return 0;
 }
