@@ -6,13 +6,9 @@ Example of a solution to the producer-consumer problem using semaphores, shared 
 
 This project was completed for cs33211 (Opearting Systems) at Kent State University on 04/05/24.
 
-For this example of the producer-consumer problem, the producer and consumer communicate via shared memory. This shared memory includes a table that can hold up to two items at a time (implemented as a circular array) and the necessary semaphores. There are three semaphores that keep track of when the table is full, when the table is empty, and when one of the processes or threads is in a critical section (enforcing mutual exclusion). The items produced and consumed by the processes are simply characters ('a','b','c', and 'd'). Each item is produced and consumed by seperate threads within the producer and consumer processes. 
+For this example of the producer-consumer problem, the producer and consumer communicate via shared memory. This shared memory includes a table that can hold up to two items at a time (implemented as a circular array) and the necessary semaphores. There are three semaphores that keep track of when the table is full, when the table is empty, and when one of the processes or threads is in a critical section (enforcing mutual exclusion). The items produced and consumed by the processes are simply characters from A to Z and are randomized each execution. 
 
-Output is produced to help visualize the execution of the producer and consumer processes. Although each execution of the program will result in the same four character items being produced and consumed, the order of production and consumption will vary. This variation is due to the concurrent execution of the producer and consumer processes and the threading of the production and consumption of each item within those processes.
-
-## Additional Information
-
-Additional documentation information is found within this project's wiki.
+Output is produced to help visualize the execution of the producer and consumer processes. Whenever items are produced or consumed, this is communicated through process output. 
 
 ## Usage
 
@@ -47,6 +43,7 @@ Consumed item: b
 
 ## Environment Information
 
-This project was developed in Red Hat Enterprise Linux 8.<br>
+All programming was done using C++.<br>
+This project was run in Red Hat Enterprise Linux 8.<br>
 The programs were compiled with g++ (GCC) version 8.5.0.
 
