@@ -3,7 +3,7 @@
 // CONSUMER FUNCTION ==========================================================
 void consumer(sharedMemory* ptr) {
 
-    int it = 0;
+    int it = 0; // initialize iterator
 
     while (it < size) {
 
@@ -18,7 +18,7 @@ void consumer(sharedMemory* ptr) {
         sem_post(&ptr->elementsOpen); // signal full semaphore (decrement it)
         sem_post(&ptr->available); // signal that next process/thread can enter its critical section
 
-        sleep(1); // cause fake delays for demonstration
+        sleep(1); // fake delay for demonstration
 
         it++;
     
@@ -31,7 +31,7 @@ void consumer(sharedMemory* ptr) {
 int main() {
 
     const char* name = "/sharedMemBuffer"; // name of shared memory object
-    int fd; // name of file descriptor for shared memory object
+    int fd; // file descriptor for shared memory object
     sharedMemory *ptr; // pointer to shared memory object
 
     // open shared memory object
