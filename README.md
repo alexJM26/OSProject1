@@ -22,7 +22,7 @@ g++ producer.cpp -pthread -lrt -o producer
 g++ consumer.cpp -pthread -lrt -o consumer
 ```
 
-To run the programs, enter the following command into the terminal. To see completion status and to return to the command line, press enter once output has finished generating.
+To run the programs, enter the following command into the terminal. To see the completion status and to return to the command line, press enter once the output has finished generating.
 ```bash
 ./producer & ./consumer &
 ```
