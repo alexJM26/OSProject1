@@ -3,7 +3,7 @@
 // PRODUCER FUNCTION ========================================================== 
 void producer(sharedMemory* ptr) {
 
-    int it = 0;
+    int it = 0; // initialize iterator
 
     while (it < size) {
 
@@ -18,9 +18,9 @@ void producer(sharedMemory* ptr) {
         std::cout << "Produced Item: " << item << std::endl;
 
         sem_post(&(ptr->elementsUsed)); // signal empty semaphore (decrement it)
-        sem_post(&(ptr->available)); // signal next process/thread can enter its critical section
+        sem_post(&(ptr->available)); // signal that next process/thread can enter its critical section
 
-        sleep(1); // cause fake delays for demonstration
+        sleep(1); // fake delay for demonstration
 
         it++; 
 
@@ -33,7 +33,7 @@ void producer(sharedMemory* ptr) {
 int main() {
 
     const char* name = "/sharedMemBuffer"; // name of shared memory object
-    int fd; // name of file descriptor for shared memory object
+    int fd; // file descriptor for shared memory object
     sharedMemory *ptr; // pointer to shared memory object
 
     // open shared memory object
@@ -56,6 +56,10 @@ int main() {
     sem_init(&ptr->available,1,1);
     sem_init(&ptr->elementsOpen,1,table_size);
     sem_init(&ptr->elementsUsed,1,0);
+
+    // initialize in and out
+    ptr->in = 0;
+    ptr->out = 0;
 
     // set seed for random producer items
     srand(5);
