@@ -56,7 +56,6 @@ Consumed item: L
 
 ## Environment Information
 
-All programming was done using C++.<br>
 This project was run in Red Hat Enterprise Linux 8.<br>
 The programs were compiled with g++ (GCC) version 8.5.0.
 
