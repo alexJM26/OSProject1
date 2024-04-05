@@ -7,7 +7,7 @@ void consumer(sharedMemory* ptr) {
 
     while (it < size) {
 
-        sem_wait(&ptr->empty); // wait if table is empty
+        sem_wait(&ptr->elementsUsed); // wait if table is empty
         sem_wait(&ptr->available); // wait if another thread/process is in its critical section
 
         char itemConsumed = ptr->table[ptr->out]; // consume item in next consumable spot
@@ -15,12 +15,12 @@ void consumer(sharedMemory* ptr) {
 
         std::cout << "Consumed item: " << itemConsumed << std::endl;
 
-        sem_post(&ptr->full); // signal full semaphore (decrement it)
+        sem_post(&ptr->elementsOpen); // signal full semaphore (decrement it)
         sem_post(&ptr->available); // signal that next process/thread can enter its critical section
 
-        it++;
-
         sleep(1); // cause fake delays for demonstration
+
+        it++;
     
     }
 
