@@ -9,7 +9,7 @@ void producer(sharedMemory* ptr) {
 
         char item = char(65 + rand() % 25); // get random character A-Z
 
-        sem_wait(&(ptr->full)); // wait if table is full
+        sem_wait(&(ptr->elementsOpen)); // wait if table is full
         sem_wait(&(ptr->available)); // wait if another process/thread is in critical section
 
         ptr->table[ptr->in] = item; // produce item in next available spot
@@ -17,12 +17,12 @@ void producer(sharedMemory* ptr) {
 
         std::cout << "Produced Item: " << item << std::endl;
 
-        sem_post(&(ptr->empty)); // signal empty semaphore (decrement it)
+        sem_post(&(ptr->elementsUsed)); // signal empty semaphore (decrement it)
         sem_post(&(ptr->available)); // signal next process/thread can enter its critical section
 
-        it++; 
-
         sleep(1); // cause fake delays for demonstration
+
+        it++; 
 
     }
 
@@ -54,8 +54,8 @@ int main() {
 
     // initialize semaphores
     sem_init(&ptr->available,1,1);
-    sem_init(&ptr->full,1,table_size);
-    sem_init(&ptr->empty,1,0);
+    sem_init(&ptr->elementsOpen,1,table_size);
+    sem_init(&ptr->elementsUsed,1,0);
 
     // set seed for random producer items
     srand(5);
